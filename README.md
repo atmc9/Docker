@@ -35,3 +35,24 @@
     * Hyper-V isolation container: Windows spins a light weight Hyper-V VM and it used it separate OS
     * only one container for Hyper-V VM is possible
     
+ # Docker Images
+ 
+ 1. Image: is a read only template for application containers. It contains all code and supporting files to run application. (OS files app files, Manifest)
+ 2. Images are build time constructs, containers are runtime
+ 3. Image is a stack of layers
+ 4. We store Images in Registry, on-prem or Cloud
+ 5. How to make changes to Image as it is read only, for every container we will ahve a thin writable layer.
+ 6.
+ 
+ ## Docker Image Commands
+
+* Pull image from registry: docker image pull ...
+* 
+
+
+ 
+ 
+ 
+ 
+ 
+ 
