@@ -42,14 +42,51 @@
  3. Image is a stack of layers
  4. We store Images in Registry, on-prem or Cloud
  5. How to make changes to Image as it is read only, for every container we will ahve a thin writable layer.
- 6.
+ 6. Pull Images ->
+      * Get Manifest
+         * Get the fat Manifest and look for image manifest entry for your OS Type, Architecture
+      * Get Layers: Get them from registry's blob store
+      * all layers can be verified in lynux at : /var/lib/docker/aufs[diver]/diff
  
- ## Docker Image Commands
+ ## Docker Image Commands   
+(redis -> RepoName;  )
+* **Pull image from registry**: docker image pull redis   (default assumes from docker-hub registry)
+* **Look all local images**: docker image ls
+* **Image history**: docker history redis 
+* **Image Json Config**: docker image inspect redis  
+* **Image Delete**: docker image rm redis
 
-* Pull image from registry: docker image pull ...
-* 
+## Docker Registries (where images live in)
+
+NOTE: docker.io/redis:latest  [REGISTRY/REPO:IMAGE(tag)]
+
+1. Default registry -> Docker hub
+2. DTR -> Docker Trusted Registry (on-premis registry comes with enterprise version)
+3. all images pulled will get into logal registry 
+    * linux -> /var/lib/docker/overlay2<Storage-driver>
+    * windows ->  C:\programData\docker\windowsfilter
+4. Official, unofficial images. Official images lives at top level of Hub namespace
+    * docker.io/redis , docker.io/nginx:1.13.5
+5. On wire layers are compressed and its distributed hash(compressed hash) is included in manifest
+
+## Docker Images best practices:
+  * Use official images
+  * Look for small size images
+  * use alphine image if we dont have image what we need
+  * use explicit image reference
+
+# Containerizing an APP
 
 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
  
  
