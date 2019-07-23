@@ -92,10 +92,45 @@ NOTE: docker.io/redis:latest  [REGISTRY/REPO:IMAGE(tag)]
    * COPY = copy code into image as new layer
    * some instrcutions add metadata instead of layers
    * ENTRYPOINT = default app for image/container
+   * Multi-stage docker file gives a leaner way to build images for production
    
+# Docker Container
+
+* atomic unit of scheduling in docker work is container, in virtulaization it is VM, in kubernetes it is pod
+* an contianer is an runtime of image, with just a thin writable container layer added
+* each container generally runs a single process and has a single job
+* microservices is the way to go using dockers, keep a container as simple as possible and use API's to communicate 
+* dockers can very well be used for running traditional apps
+* starting, stopping a container does not destroys its data
+* every image has a default process to run (sh,..) can be seen by inspecting image
+* default process for new containers -> CMD: Run time arguments override CMD instructions -> ENTRYPOINT: Run-time arguments are appended to ENTRYPOINT
+
+## Docker Container Commands:
+
+* docker container run -it(interative terminal) alpine(IMAGE) sh(which process to run)
+* ctrl + P + Q to get out of terminal (does not kills the process of shell)
+* docker container stop id(few chars of start)
+* docker container ls -a  -> lists all the containers even the stopes one
+* docker container start id
+* docker container exec -it 60 sh  -> takes us to shell commands
+* docker container rm $(docker container ls -aq) -f   -> forcely removing all containers 
+* docker port containername   -> lists the port mapping between host and container
+* docker inspect -f "{{ .NetworkSettings.Networks.nat.IPAddress }}" conatinername  -> gets the ip address of container
+
+## Logging:
+
+* 2 types of logs engine/daemon, container logs(app logs)
+* engine/demon
+     * Linux: 
+         * systemd: journalctl -u docker.service
+         * non-systemd: try  /var/log/messages
+      * Windows:
+         * ~/AppData/Local/Docker
+ * container logs
+   * default support STDOUT STDERR
+   * set default logging driver in daemon.json, any new containers will use this driver
+   * override per-container with   --log-driver --log-opts
    
-   
-  
 
 
 
