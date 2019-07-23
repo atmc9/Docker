@@ -77,6 +77,26 @@ NOTE: docker.io/redis:latest  [REGISTRY/REPO:IMAGE(tag)]
 
 # Containerizing an APP
 
+ * Dockerfile is used to create image
+ * create an image -> docker image build -t imagename .  [. is current working directory is provided as context]
+ * git remote repo can also be passed for image build context
+ * during image creation multiple intermediate containers got created and removed.
+ 
+ ## Dockerfile 
+   * instructions for building images
+   * INSTRUCTION <value>
+   * FROM always first instruction
+   * FROM = base image
+   * Good practice to list maintainer
+   * RUN = execute command and create layer
+   * COPY = copy code into image as new layer
+   * some instrcutions add metadata instead of layers
+   * ENTRYPOINT = default app for image/container
+   
+   
+   
+  
+
 
 
  
