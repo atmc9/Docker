@@ -126,13 +126,12 @@ NOTE: docker.io/redis:latest  [REGISTRY/REPO:IMAGE(tag)]
          * non-systemd: try  /var/log/messages
       * Windows:
          * ~/AppData/Local/Docker
- * container logs
+ * container logs: (takes standout, stderr steams and forwards them to somewhere else syslog, gelf, splunk, fluentd), it is all get done using logging-drivers, configured at deamon.json
    * default support STDOUT STDERR
    * set default logging driver in daemon.json, any new containers will use this driver
    * override per-container with   --log-driver --log-opts
-   
-
-
+   * by default docker hosts use json logging, so we can check log files using -> docker logs <container>
+   * splunk can be configured as logging solution
 
  
  
