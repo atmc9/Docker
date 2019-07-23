@@ -132,8 +132,11 @@ NOTE: docker.io/redis:latest  [REGISTRY/REPO:IMAGE(tag)]
    * override per-container with   --log-driver --log-opts
    * by default docker hosts use json logging, so we can check log files using -> docker logs <container>
    * splunk can be configured as logging solution
+   
+# Docker Swarm
+ *  
+ *
 
- 
  
  
  
