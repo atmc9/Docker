@@ -149,12 +149,19 @@ NOTE: docker.io/redis:latest  [REGISTRY/REPO:IMAGE(tag)]
  * have odd number of managers to acheive quorum 
  * connect your managers in reliable networks (if in aws dont keep them across regions)
  * when a worker join, it wont get access to cluster store, but gets full list of ips for managers, all get their certificates
+ * manager,worker token ->  SWMTKN-1-[ClusterIdentifier(hash of cluster certificate)][ID -determines if I am a worker or manager]
       
 ## Docker Swarm commands: 
  * docker swarm init -> covert a docker node in a swarm mode (single node becomes mananger, leader, Certificate Authority, issues client certificate, creates cluster store, default certification rotation policy, creates cryptographic keys to join as managers, workers)
  * docker swarm join (crypto join token for manangers) -> to join as a manager in a swarm
- * 
-
+ * docker node ls -> to view all docker nodes both managers, workers 
+ * docker swarm join-token manager(or worker)  -> this will gives the command to join a swarm
+ * docker swarm join-token rotate manager -> to rotate the token if the key is compromised
+ * sudo openssl x509 -in /var/lib/docker/swarm/certificates/swarm-node.crt -text   -> look at client certificate on a node 
+      * in teh subject: O-(Organization - SwarmID), OU(OrganizationUnit - node's Role), CN(Canonical role - cryptographic node ID) 
+ *
+ 
+ 
  
  
  
