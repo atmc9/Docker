@@ -133,9 +133,23 @@ NOTE: docker.io/redis:latest  [REGISTRY/REPO:IMAGE(tag)]
    * by default docker hosts use json logging, so we can check log files using -> docker logs <container>
    * splunk can be configured as logging solution
    
-# Docker Swarm
- *  swarm has 2 parts, secure cluster, Orchestrator
- *
+# Docker Swarm : secure cluster of docker nodes
+ * swarm has 2 parts, secure cluster(key feature), Orchestrator (might be given to kubernetes later)
+ * Secure Swarm Cluster:
+      * Cluster of Docker nodes with managers, workers,
+      * mutual tls authentication 
+      * network chat is encrypted
+      * cluster store is encrypted
+ * Native swarm or kubernetes can be used on Docker swarm
+ * swarmkit is one powers swarm mode
+ * after swarmkit is intergarted in docker from v1.12+, docker has 
+      * sigle- engine mode: work with each node separately
+      * swarm mode: work in a cluster mode 
+      
+      
+## Docker Swarm commands: 
+ * docker swarm init -> covert a docker node in a swarm mode (single node becomes mananger, leader, Certificate Authority, issues client certificate, creates cluster store, )
+ * 
 
  
  
