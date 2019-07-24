@@ -159,7 +159,7 @@ NOTE: docker.io/redis:latest  [REGISTRY/REPO:IMAGE(tag)]
  * docker swarm join-token rotate manager -> to rotate the token if the key is compromised
  * sudo openssl x509 -in /var/lib/docker/swarm/certificates/swarm-node.crt -text   -> look at client certificate on a node 
       * in teh subject: O-(Organization - SwarmID), OU(OrganizationUnit - node's Role), CN(Canonical role - cryptographic node ID) 
- *
+ * restarting a manager, restoring a old backup causes problem at 
  
  
  
