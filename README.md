@@ -134,7 +134,7 @@ NOTE: docker.io/redis:latest  [REGISTRY/REPO:IMAGE(tag)]
    * splunk can be configured as logging solution
    
 # Docker Swarm
- *  
+ *  swarm has 2 parts, secure cluster, Orchestrator
  *
 
  
