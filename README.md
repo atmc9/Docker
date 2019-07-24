@@ -145,10 +145,14 @@ NOTE: docker.io/redis:latest  [REGISTRY/REPO:IMAGE(tag)]
  * after swarmkit is intergarted in docker from v1.12+, docker has 
       * sigle- engine mode: work with each node separately
       * swarm mode: work in a cluster mode 
-      
+ * raft consensus group handles all distributed consensus stuff, like electing a new manager leader   
+ * have odd number of managers to acheive quorum 
+ * connect your managers in reliable networks (if in aws dont keep them across regions)
+ * when a worker join, it wont get access to cluster store, but gets full list of ips for managers, all get their certificates
       
 ## Docker Swarm commands: 
- * docker swarm init -> covert a docker node in a swarm mode (single node becomes mananger, leader, Certificate Authority, issues client certificate, creates cluster store, )
+ * docker swarm init -> covert a docker node in a swarm mode (single node becomes mananger, leader, Certificate Authority, issues client certificate, creates cluster store, default certification rotation policy, creates cryptographic keys to join as managers, workers)
+ * docker swarm join (crypto join token for manangers) -> to join as a manager in a swarm
  * 
 
  
