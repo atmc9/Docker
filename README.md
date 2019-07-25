@@ -108,11 +108,12 @@ NOTE: docker.io/redis:latest  [REGISTRY/REPO:IMAGE(tag)]
 ## Docker Container Commands:
 
 * docker container run -it(interative terminal) alpine(IMAGE) sh(which process to run)
+* docker container run --rm -d alpine sleep 1d   (creates and run the container in background)
 * ctrl + P + Q to get out of terminal (does not kills the process of shell)
 * docker container stop id(few chars of start)
 * docker container ls -a  -> lists all the containers even the stopes one
 * docker container start id
-* docker container exec -it 60 sh  -> takes us to shell commands
+* docker container exec -it 60 sh  -> takes us to shell commands inside that container
 * docker container rm $(docker container ls -aq) -f   -> forcely removing all containers 
 * docker port containername   -> lists the port mapping between host and container
 * docker inspect -f "{{ .NetworkSettings.Networks.nat.IPAddress }}" conatinername  -> gets the ip address of container
@@ -189,13 +190,32 @@ NOTE: docker.io/redis:latest  [REGISTRY/REPO:IMAGE(tag)]
 * using MACVLAN conatiners get ip and mac address makes containers first class citizans
 * MACVLAN require promiscuous mode on host nick, which cloud providers wont allow mostly
 * IPVLAN solves that, but not so standard solution
+* when a container is added, it will be added to default bridge network
+* For overlays, we need swarm mode
 
 ## docker network commands
 
-* docker network create  -o encrypted  -> creates a overlay network
-* 
- 
- 
+* docker network create  -o encrypted  -> creates a default network, bridge driver
+* docker network ls   -> view all networks
+* docker network inspect bridge   -> inpect a network
+* docker container run --rm -d --name web -p 8080:80 nginx   -> port mapping, added to default network
+* docker network create -d bridge(driver) golden-gate(bridgename) 
+* docker container run --rm -d --network golden-gate alpine sleep 1d  -> creating container in a specific network
+* docker network create -d overlay overnet  -> this overlay network is now scope to swarm
+* docker service create -d --name pinger --replicas 2 --network overnet alpine sleep 1d   -> we will get service with 2 replicas
+      * docker service create -> creating new native swarm service
+      *  --name pinger        -> calling it pinger
+      *  --replicas 2         -> creating 2 taks of replicas
+      *  --network overnet    -> putting it on new overlay
+      *  alphine sleep 1d     -> telling what to run
+* docker service ls   -> to list the services
+* docker service ps pinger   -> lists the task of service
+
+## network services:
+* Service Discovery:
+   *
+* Load Balancing:
+   *
  
  
  
