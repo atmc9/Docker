@@ -210,12 +210,22 @@ NOTE: docker.io/redis:latest  [REGISTRY/REPO:IMAGE(tag)]
       *  alphine sleep 1d     -> telling what to run
 * docker service ls   -> to list the services
 * docker service ps pinger   -> lists the task of service
+* docker service rm $(docker service ls -q)
 
 ## network services:
-* Service Discovery:
-   *
+* Service Discovery: using the name registered every container in network able to ping it using name
+   * every service gets a name
+   * names are registered with swarm DNS
+   * every container in a service gets DNS Resolver that forwards lookups to Swarm based DNS service. 
+   * all swarm services are pingable by name
 * Load Balancing:
-   *
+   * 1. ingress loadbalancing: any node in swarm will be able to discover the relica for the service 
+   * say my swarm contains -> 3 nodes 
+   * docker service create -d name web --replicas 1 --network overnet -p 8080:80 nginx   -> service got ceated with 1 replica 
+   * say the service container got created on node1
+   * docker service inspect web --pretty   -> check the network port 
+   * if I access the site using node2 ip address, still the site works 
+
  
  
  
