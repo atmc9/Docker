@@ -218,7 +218,7 @@ NOTE: docker.io/redis:latest  [REGISTRY/REPO:IMAGE(tag)]
    * names are registered with swarm DNS
    * every container in a service gets DNS Resolver that forwards lookups to Swarm based DNS service. 
    * all swarm services are pingable by name
-* Load Balancing:
+* Load Balancing: makes every node in the swarm know about every service
    * 1. ingress loadbalancing: any node in swarm will be able to discover the relica for the service 
    * say my swarm contains -> 3 nodes 
    * docker service create -d name web --replicas 1 --network overnet -p 8080:80 nginx   -> service got ceated with 1 replica 
