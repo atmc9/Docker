@@ -176,8 +176,24 @@ NOTE: docker.io/redis:latest  [REGISTRY/REPO:IMAGE(tag)]
  * docker swarm unlock      provide the key -> this allows to join the swarm
  * docker swarm update --cert-expiry 48h    -> can be verified using docker system info
  
- 
- 
+# Container Networking
+
+* Containers may need to talk to VM's, internet or vice-versa
+* Bridge Networking (single-house networking) - oldest and crappiest
+* built-in network on docker -> bridge(linux), nat(windows) - it is reffered as docker0
+* to have communication across networks we need port mappings
+* overlay-networks (multi-host networks)  -> communicating across containers over multiple network
+* layer-2 network spanning multiple hosts
+* docker overlay encrypts control, data planes
+* to communiate to VMs MACVLAN (linux), transparent(windows)
+* using MACVLAN conatiners get ip and mac address makes containers first class citizans
+* MACVLAN require promiscuous mode on host nick, which cloud providers wont allow mostly
+* IPVLAN solves that, but not so standard solution
+
+## docker network commands
+
+* docker network create  -o encrypted  -> creates a overlay network
+* 
  
  
  
