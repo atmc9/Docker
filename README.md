@@ -17,7 +17,7 @@
 * Native Orchestration - Swarm
 * On-prem Secure Registry
 * Universal Control Plane with ops-ui, R-back policies
-* Echo sysytem plugins
+* Eco-sysytem plugins
 
 ## History
  * dtCloud - with LXC and AUFS, LXC is use dby docker but later created libcontainer 
@@ -29,7 +29,7 @@
  * In windows we will have Client(docker.exe), Demon(dockerd.exe)  
  * Compute Services layer instead of (ContainerD,OCI)
  * In linux we have single process for container
- * Windows has inter-dependency of processes, so when we start windows container it will start the service SMSS that checks all reuired processes are ready - like init in linux
+ * Windows has inter-dependency of processes, so when we start windows container it will start the service SMSS that checks all required processes are ready - like init in linux
  * Types of contianers on windows: 
     * Native Windows conatiners: Namespace for isolation, all shares the Host OS Kernal
     * Hyper-V isolation container: Windows spins a light weight Hyper-V VM and it used it separate OS
@@ -41,12 +41,12 @@
  2. Images are build time constructs, containers are runtime
  3. Image is a stack of layers
  4. We store Images in Registry, on-prem or Cloud
- 5. How to make changes to Image as it is read only, for every container we will ahve a thin writable layer.
+ 5. How to make changes to Image as it is read only, for every container we will have a thin writable layer.
  6. Pull Images ->
       * Get Manifest
          * Get the fat Manifest and look for image manifest entry for your OS Type, Architecture
       * Get Layers: Get them from registry's blob store
-      * all layers can be verified in lynux at : /var/lib/docker/aufs[diver]/diff
+      * all layers can be verified in linux at : /var/lib/docker/aufs[diver]/diff
  
  ## Docker Image Commands   
 (redis -> RepoName;  )
@@ -62,12 +62,12 @@ NOTE: docker.io/redis:latest  [REGISTRY/REPO:IMAGE(tag)]
 
 1. Default registry -> Docker hub
 2. DTR -> Docker Trusted Registry (on-premis registry comes with enterprise version)
-3. all images pulled will get into logal registry 
+3. all images pulled will get into local registry 
     * linux -> /var/lib/docker/overlay2<Storage-driver>
     * windows ->  C:\programData\docker\windowsfilter
 4. Official, unofficial images. Official images lives at top level of Hub namespace
     * docker.io/redis , docker.io/nginx:1.13.5
-5. On wire layers are compressed and its distributed hash(compressed hash) is included in manifest
+5. On wire, layers are compressed and its distributed hash(compressed hash) is included in manifest
 
 ## Docker Images best practices:
   * Use official images
@@ -96,7 +96,7 @@ NOTE: docker.io/redis:latest  [REGISTRY/REPO:IMAGE(tag)]
    
 # Docker Container
 
-* atomic unit of scheduling in docker work is container, in virtulaization it is VM, in kubernetes it is pod
+* atomic unit of scheduling in docker world is container, in virtulaization it is VM, in kubernetes it is pod
 * an contianer is an runtime of image, with just a thin writable container layer added
 * each container generally runs a single process and has a single job
 * microservices is the way to go using dockers, keep a container as simple as possible and use API's to communicate 
@@ -150,16 +150,33 @@ NOTE: docker.io/redis:latest  [REGISTRY/REPO:IMAGE(tag)]
  * connect your managers in reliable networks (if in aws dont keep them across regions)
  * when a worker join, it wont get access to cluster store, but gets full list of ips for managers, all get their certificates
  * manager,worker token ->  SWMTKN-1-[ClusterIdentifier(hash of cluster certificate)][ID -determines if I am a worker or manager]
-      
+ * restarting a manager, restoring a old backup causes problem, so docker does lock a swarm called autolock
+         * prevents restarted Managers from automatically rejoining the swarm
+         * loading the encryption keys and decypting the raft logs 
+         * prevents accidentally restoring the old copies of swarm 
+ * Orchestration: we can deploy application on swarm cluster (and declare 4 containers to run), if a node break, swarm and kubernetes will observer cluster and if desired state changes, it will self heal (adding a new container), balancing the load, rolling updates  
+ 
 ## Docker Swarm commands: 
- * docker swarm init -> covert a docker node in a swarm mode (single node becomes mananger, leader, Certificate Authority, issues client certificate, creates cluster store, default certification rotation policy, creates cryptographic keys to join as managers, workers)
+ * docker swarm init -> covert a docker node in a swarm mode 
+         * single node becomes mananger, leader, 
+         * certificate authority, 
+         * issues client certificate, 
+         * creates cluster store
+         * default certification rotation policy, 
+         * creates cryptographic keys to join as managers, workers
  * docker swarm join (crypto join token for manangers) -> to join as a manager in a swarm
  * docker node ls -> to view all docker nodes both managers, workers 
  * docker swarm join-token manager(or worker)  -> this will gives the command to join a swarm
  * docker swarm join-token rotate manager -> to rotate the token if the key is compromised
  * sudo openssl x509 -in /var/lib/docker/swarm/certificates/swarm-node.crt -text   -> look at client certificate on a node 
-      * in teh subject: O-(Organization - SwarmID), OU(OrganizationUnit - node's Role), CN(Canonical role - cryptographic node ID) 
- * restarting a manager, restoring a old backup causes problem at 
+      * in the subject: O-(Organization - SwarmID), OU(OrganizationUnit - node's Role), CN(Canonical role - cryptographic node ID) 
+ * docker swarm init --autolock  -> Autolock new swarm (autolock is not default enabled)
+ * docker swarm update --autolock=true -> Autolock existing swarm
+ * sudo service docker restart
+ * docker swarm unlock      provide the key -> this allows to join the swarm
+ * docker swarm update --cert-expiry 48h    -> can be verified using docker system info
+ 
+ 
  
  
  
