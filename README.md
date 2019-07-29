@@ -226,6 +226,11 @@ NOTE: docker.io/redis:latest  [REGISTRY/REPO:IMAGE(tag)]
    * docker service inspect web --pretty   -> check the network port 
    * if I access the site using node2 ip address, still the site works 
 
+# volumes and Persistent data
+
+* docker volume create   -> creates a persistent volumes that can be independent from containers
+* we can also mount the volumns on external high end sysytems like SAN, NAS using docker storage drivers
+* volumes live on host ->   /var/lib/docker/volumes/
  
  
  
