@@ -1,3 +1,5 @@
+Great Alternative: https://github.com/tkarakai-gto/notes/blob/fcee28bd2c227cf30e939fda47f139e6f90a5563/docker_notes.md
+
 # Docker Architecture and Theory
 
 1. Container: An Isolation area(NameSpaces) of OS with resource usage limits (ControlGroups) applied.   
@@ -235,7 +237,19 @@ NOTE: docker.io/redis:latest  [REGISTRY/REPO:IMAGE(tag)]
  
 # Docker secret
 
-* 
+* docker secret create name filelocation    
+* you specify the secret to an container while docker service create command explicitly to give access 
+* the docker secret is encypted in docker raft and is shared to only replica nodes using TLS
+* the secrets will be kept in at following locations on worker nodes
+   * linux: /run/secerts
+   * windows: C:ProgramData/Docker/Secrets/
+   
+# Docker Stack
+
+* In prod for deploying multiple apps that communicates together we use stack
+* This gives a great documentation for apps
+* heirarchy: app -> container/image -> Service -> Stack
+
  
  
  
