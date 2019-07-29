@@ -268,12 +268,21 @@ NOTE: docker.io/redis:latest  [REGISTRY/REPO:IMAGE(tag)]
  * we can scale a specfic service using
          * imperative:  docker service scale voter_vote=20    
          * make the replica count in stack file and then : and rerun the original deploy command
-         
-          
-
  
+ # Docker Enterprise Tooling:
  
+ * Docker EE comes with more features like
  
+      * Universal Control Plane: GUI for all the docker actions and will give a UI for monitoring the nodes
+      * Docker Trusted Repository: created using the GUI steps 
+      * Role based access control: it is under user management tab, its all about grants
+      * Image Scanning: 
+      * HTTP Routing Mesh(HRM): 
+          * We have seen transport layer routing mesh(Swarm-mode routing mesh) (if we hit any node in the swarm, the request can be served), Transport layer solution (L4).
+          * HTTP routing mesh builds on top of Swarm-mode routing mesh, it is L7 Application layer intelligence
+          * HRM lets us publish multiple services on same Swarm-wide port
+          * it inspects HTTP host header to route to correct service
+          * 
  
  
  
