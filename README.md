@@ -261,8 +261,14 @@ NOTE: docker.io/redis:latest  [REGISTRY/REPO:IMAGE(tag)]
       * topology-aware scheduling: schedule based on node lables etc
       * health-aware scheduling: only schedule to healthy nodes
       * H/A scheduling: Spread relicas on multiple nodes
- * docker stack deploy -c stakfile.yaml
- 
+ * docker stack deploy -c stackfile.yml name
+ * docker stack ls
+ * docker stack ps name  -> to see full image names and their status
+ * docer stack services name   -> to list all services in the stack and their status
+ * we can scale a specfic service using
+         * imperative:  docker service scale voter_vote=20    
+         * make the replica count in stack file and then : and rerun the original deploy command
+         
           
 
  
