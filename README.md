@@ -249,8 +249,16 @@ NOTE: docker.io/redis:latest  [REGISTRY/REPO:IMAGE(tag)]
 * In prod for deploying multiple apps that communicates together we use stack
 * This gives a great documentation for apps
 * heirarchy: app -> container/image -> Service -> Stack
-
+* YAML file is created with all apps specs
+*  Stack file compsed of folowing parts : (example)[https://github.com/nigelpoulton/example-voting-app]
+    
+     * version: "1.1"
+     * services:
+     * networks:
+     * volumes:
+     
  
+
  
  
  
