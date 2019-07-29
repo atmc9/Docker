@@ -229,10 +229,13 @@ NOTE: docker.io/redis:latest  [REGISTRY/REPO:IMAGE(tag)]
 # volumes and Persistent data
 
 * docker volume create   -> creates a persistent volumes that can be independent from containers
+* docker container run -dit --name voltest  --mount source=ubervol,target=/vol alpine:latest
 * we can also mount the volumns on external high end sysytems like SAN, NAS using docker storage drivers
 * volumes live on host ->   /var/lib/docker/volumes/
  
- 
+# Docker secret
+
+* 
  
  
  
