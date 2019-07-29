@@ -257,7 +257,13 @@ NOTE: docker.io/redis:latest  [REGISTRY/REPO:IMAGE(tag)]
      * networks:
      * volumes:
      
+ * scheduling types:
+      * topology-aware scheduling: schedule based on node lables etc
+      * health-aware scheduling: only schedule to healthy nodes
+      * H/A scheduling: Spread relicas on multiple nodes
+ * docker stack deploy -c stakfile.yaml
  
+          
 
  
  
