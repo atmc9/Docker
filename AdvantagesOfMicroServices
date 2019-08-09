@@ -1,0 +1,7 @@
+#Advantages of MicroServices:
+
+* Test the changes are just scoped to the specific micro service
+* Scalability of a specific feature
+* deployment flexibility 
+* can be scaled separately 
+* 
